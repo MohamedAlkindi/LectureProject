@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(StoreApp());
+  runApp(const StoreApp());
 }
 
 class StoreApp extends StatefulWidget {
@@ -12,6 +12,8 @@ class StoreApp extends StatefulWidget {
 }
 
 class _StoreAppState extends State<StoreApp> {
+  bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,19 +25,19 @@ class _StoreAppState extends State<StoreApp> {
         body: Container(
           child: Column(
             children: <Widget>[
-              Icon(
+              const Icon(
                 Icons.store,
                 size: 100,
               ),
               TextField(
                 decoration: InputDecoration(
                   hintText: "Enter username",
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.red,
                   ),
                   labelText: "Username",
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.black,
                   ),
@@ -44,24 +46,22 @@ class _StoreAppState extends State<StoreApp> {
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(color: Colors.black, width: 5),
+                    borderSide: const BorderSide(color: Colors.black, width: 5),
                   ),
                 ),
                 keyboardType: TextInputType.text,
               ),
               const SizedBox(height: 40),
-              // TODO: Put the icon inside the border.
-              // TODO: Add functionality to hide and view password.
               // TODO: HW Create a new project that has appbar login, Icon 2 textboxes.
               TextField(
                 decoration: InputDecoration(
                   hintText: "Enter password",
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.red,
                   ),
                   labelText: "Password",
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.black,
                   ),
@@ -69,13 +69,28 @@ class _StoreAppState extends State<StoreApp> {
                   icon: const Icon(
                     Icons.lock,
                   ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                    icon: Icon(
+                      (_isObscure) == true
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(color: Colors.black, width: 5),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                      width: 5,
+                    ),
                   ),
                 ),
                 keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
+                obscureText: _isObscure,
               ),
               const SizedBox(
                 height: 40,
@@ -83,12 +98,12 @@ class _StoreAppState extends State<StoreApp> {
               TextField(
                 decoration: InputDecoration(
                   hintText: "Enter Email",
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.red,
                   ),
                   labelText: "Email",
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.black,
                   ),
@@ -97,7 +112,10 @@ class _StoreAppState extends State<StoreApp> {
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(color: Colors.black, width: 5),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                      width: 5,
+                    ),
                   ),
                 ),
                 keyboardType: TextInputType.emailAddress,
@@ -108,12 +126,12 @@ class _StoreAppState extends State<StoreApp> {
               TextField(
                 decoration: InputDecoration(
                   hintText: "Enter phone number",
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.red,
                   ),
                   labelText: "Phone number",
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 25,
                     color: Colors.black,
                   ),
@@ -122,7 +140,10 @@ class _StoreAppState extends State<StoreApp> {
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),
-                    borderSide: BorderSide(color: Colors.black, width: 5),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                      width: 5,
+                    ),
                   ),
                 ),
                 keyboardType: TextInputType.phone,
