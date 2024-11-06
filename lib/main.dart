@@ -1,4 +1,9 @@
+// ignore_for_file: avoid_unnecessary_containers
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(const StoreApp());
@@ -13,6 +18,17 @@ class StoreApp extends StatefulWidget {
 
 class _StoreAppState extends State<StoreApp> {
   bool _isObscure = true;
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +38,56 @@ class _StoreAppState extends State<StoreApp> {
           title: const Text("Sign in"),
           backgroundColor: Colors.blue,
         ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: _pickImage,
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: _image != null
+                                ? FileImage(_image!)
+                                : const NetworkImage(
+                                        'https://via.placeholder.com/150')
+                                    as ImageProvider,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        const Text('Mohamed Sami Bakir'),
+                      ],
+                    ),
+                    const Text('someemail@gmail.com'),
+                  ],
+                ),
+              ),
+              const ListTile(
+                leading: Icon(Icons.home_outlined),
+                title: Text('Home Page'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.access_alarm),
+                title: Text('Set Alarm'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+              ),
+            ],
+          ),
+        ),
         body: Container(
           child: Column(
             children: <Widget>[
               const Icon(
-                Icons.store,
+                Icons.abc_sharp,
                 size: 100,
               ),
               TextField(
@@ -52,7 +113,6 @@ class _StoreAppState extends State<StoreApp> {
                 keyboardType: TextInputType.text,
               ),
               const SizedBox(height: 40),
-              // TODO: HW Create a new project that has appbar login, Icon 2 textboxes.
               TextField(
                 decoration: InputDecoration(
                   hintText: "Enter password",
@@ -71,9 +131,11 @@ class _StoreAppState extends State<StoreApp> {
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
+                      setState(
+                        () {
+                          _isObscure = !_isObscure;
+                        },
+                      );
                     },
                     icon: Icon(
                       (_isObscure) == true
